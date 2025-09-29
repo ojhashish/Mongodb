@@ -1,0 +1,88 @@
+Assignment 1-
+
+Create collections:
+db.createCollection("foods")
+db.createCollection("restaurants")
+
+
+Insert 5 records into foods (3 with insertMany, 2 with insertOne):
+
+
+
+db.foods.insertMany([
+  { name: "Aloo Bhujia", calories: 150, brand: "Haldiram", category: "snack", price: 40 },
+  { name: "Orange Blast", calories: 110, brand: "BTW", category: "juices", price: 80 },
+  { name: "Mango Delight", calories: 130, brand: "Tropicana", category: "juices", price: 90 }
+])
+
+
+db.foods.insertOne({ name: "Paneer Wrap", calories: 350, brand: "LocalKitchen", category: "meals", price: 180 })
+db.foods.insertOne({ name: "Samosa", calories: 200, brand: "Chawla", category: "snack", price: 25 })
+
+
+Insert 5 records into restaurants (3 with insertMany, 2 with insertOne):
+
+db.restaurants.insertMany([
+  {
+    name: "Spice Villa", year: 2010, location: "Connaught Place",
+    contact: "011-23456789", email: "contact@spicevilla.com",
+    nos_of_days_open: 7, city: "Delhi", category: "meals", serving: "Dining"
+  },
+  {
+    name: "Juice Junction", year: 2018, location: "Bandra West",
+    contact: "022-98765432", email: "hello@juicejunction.in",
+    nos_of_days_open: 6, city: "Mumbai", category: "juices", serving: "Takeaway"
+  },
+  {
+    name: "Snack Shack", year: 2015, location: "Sector 18",
+    contact: "0120-445566", email: "info@snackshack.com",
+    nos_of_days_open: 5, city: "Noida", category: "snack", serving: "Takeaway"
+  }
+])
+
+db.restaurants.insertOne({
+  name: "Delhi Dine", year: 2005, location: "Karol Bagh",
+  contact: "011-99887766", email: "contact@delhidine.in",
+  nos_of_days_open: 7, city: "Delhi", category: "meals", serving: "Dining"
+})
+
+db.restaurants.insertOne({
+  name: "Mumbai Meals", year: 2012, location: "Andheri",
+  contact: "022-77665544", email: "hello@mumbaimeals.in",
+  nos_of_days_open: 7, city: "Mumbai", category: "meals", serving: "Buffet"
+})
+
+Search & print documents in foods with category: "juices" :
+
+db.foods.find({ category: "juices" }).pretty()
+
+Search & print documents in restaurants for city Delhi & Mumbai:
+
+db.restaurants.find({ city: { $in: ["Delhi", "Mumbai"] } }).pretty()
+
+Update the price of any food item in category snack:
+
+db.foods.updateOne(
+  { category: "snack" },            
+  { $set: { price: 99 } }          
+)
+
+db.foods.find({ category: "snack" }).pretty()
+
+Update the location of restaurants belonging to city Delhi:
+
+db.restaurants.updateMany(
+  { city: "Delhi" },
+  { $set: { location: "Updated Delhi Address, New Area" } }
+)
+
+db.restaurants.find({ city: "Delhi" }).pretty()
+
+
+Delete the food item:
+
+db.foods.deleteOne({ brand: "Haldiram" })
+
+
+
+
